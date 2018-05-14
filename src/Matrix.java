@@ -91,7 +91,8 @@ public class Matrix {
     }
 
     public static void main(String[] args) {
-        Matrix test = new Matrix(12);
+        int num = Integer.parseInt(args[0]);
+        Matrix test = new Matrix(num);
         System.out.println(test.toString());
     }
 }
