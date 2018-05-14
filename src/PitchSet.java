@@ -2,12 +2,12 @@ import java.util.LinkedList;
 import java.util.HashMap;
 
 public class PitchSet {
-    HashMap<String, Integer> noteToDegree;
+    HashMap<Integer, String> degreeToNote;
     LinkedList<String> notes;
 
     public PitchSet() {
-        noteToDegree = new HashMap<>();
-        notes = new LinkedList<>();
+        degreeToNote = new HashMap<Integer, String>();
+        notes = new LinkedList<String>();
     }
 
     public void addNote(String note) {
@@ -15,11 +15,7 @@ public class PitchSet {
             throw new IllegalArgumentException();
         }
         notes.add(note);
-        noteToDegree.put(note, notes.size() - 1);
-    }
-
-    public Matrix generateMatrix() {
-        return new Matrix(notes.size());
+        degreeToNote.put(notes.size() - 1, note);
     }
 
     public static void main(String[] args) {
@@ -27,7 +23,5 @@ public class PitchSet {
         for (String s : args) {
             test.addNote(s);
         }
-        Matrix m = test.generateMatrix();
-        System.out.println(m);
     }
 }
