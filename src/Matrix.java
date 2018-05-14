@@ -2,14 +2,27 @@ import java.util.LinkedList;
 import java.util.Arrays;
 public class Matrix {
 
-    int[][] board;
+    class Square {
+        int scaleDegree;
+        String noteName;
+
+        public Square(int degree) {
+            scaleDegree = degree;
+        }
+
+        public String toString() {
+            return "" + scaleDegree;
+        }
+    }
+
+    Square[][] board;
     int size;
 
     public Matrix(int numTones) {
         if (numTones < 1 || numTones > 12) {
             throw new IllegalArgumentException();
         }
-        board = new int[numTones][numTones];
+        board = new Square[numTones][numTones];
         size = numTones;
         completeMatrix(randomRow(numTones));
     }
@@ -47,36 +60,36 @@ public class Matrix {
         }
         //copy over first row
         for (int i = 0; i < size; i++) {
-            board[0][i] = row[i];
+            board[0][i] = new Square(row[i]);
         }
 
         //fill in first column (inverted)
         for (int i = 1; i < size; i++) {
-            int diff = board[0][i-1] - board[0][i];
-            board[i][0] = fixDegree(board[i-1][0] + diff, size);
+            int diff = board[0][i-1].scaleDegree - board[0][i].scaleDegree;
+            board[i][0] = new Square(fixDegree(board[i-1][0].scaleDegree + diff, size));
         }
 
         //fill in rest
         int first = row[0];
         for (int i = 1; i < size; i++) {
-            int firstInRow = board[i][0];
+            int firstInRow = board[i][0].scaleDegree;
             int diff = firstInRow - first;
             for (int j = 1; j < size; j++) {
-                board[i][j] = fixDegree(board[0][j] + diff, size);
+                board[i][j] = new Square(fixDegree(board[0][j].scaleDegree + diff, size));
             }
         }
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder("   ");
-        for (int j : board[0]) {
+        for (Square j : board[0]) {
             sb.append(String.format("%5s", "I" + j));
         }
         sb.append("\n\n");
         for (int i = 0; i < size; i++) {
             sb.append(String.format("%-3s", "P"+ board[i][0]));
             for (int j = 0; j < size; j++) {
-                sb.append(String.format("%5d", board[i][j]));
+                sb.append(String.format("%5s", board[i][j]));
             }
             sb.append("     ");
             sb.append(String.format("%-5s", "R" + board[i][size-1]));
@@ -84,7 +97,7 @@ public class Matrix {
         }
         sb.append("\n");
         sb.append("   ");
-        for (int j : board[size-1]) {
+        for (Square j : board[size-1]) {
             sb.append(String.format("%5s", "RI" + j));
         }
         return sb.toString();
