@@ -1,5 +1,4 @@
 import java.util.LinkedList;
-import java.util.Arrays;
 public class Matrix {
 
     class Square {
@@ -27,8 +26,8 @@ public class Matrix {
     public Matrix(PitchSet p) {
         pitches = p;
         size = pitches.notes.size();
-        if (size < 1 || size > 12) {
-            throw new IllegalArgumentException();
+        if (size < 1 || size > Constants.PITCHSET_MAX) {
+            throw new IllegalArgumentException("invalid number of pitches in set");
         }
         board = new Square[size][size];
         completeMatrix(randomRow(size));

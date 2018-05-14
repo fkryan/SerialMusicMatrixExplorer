@@ -12,7 +12,7 @@ public class PitchSet {
 
     public void addNote(String note) {
         if (!Constants.validNotes.contains(note)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(note + " is not a valid note");
         }
         notes.add(note);
         degreeToNote.put(notes.size() - 1, note);
