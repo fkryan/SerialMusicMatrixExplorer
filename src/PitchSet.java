@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.HashMap;
+import java.util.List;
 
 public class PitchSet {
     HashMap<Integer, String> degreeToNote;
@@ -8,6 +9,13 @@ public class PitchSet {
     public PitchSet() {
         degreeToNote = new HashMap<Integer, String>();
         notes = new LinkedList<String>();
+    }
+
+    public PitchSet(List<String> notesToAdd) {
+        this();
+        for (String note : notesToAdd) {
+            this.addNote(note);
+        }
     }
 
     public void addNote(String note) {

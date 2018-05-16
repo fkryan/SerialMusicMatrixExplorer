@@ -9,8 +9,9 @@ public class GUI extends JFrame {
     Matrix matrix;
 
     public GUI(PitchSet p) {
-        super("Matrix Generator");
+        super("Matrix Explorer");
         matrix = new Matrix(p);
+        //scale JFrame to matrix size
         int idealWidth = (int) (66.67 * matrix.size);
         if (idealWidth < 450) {
             idealWidth = 450;
@@ -20,16 +21,20 @@ public class GUI extends JFrame {
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        //user instructions at top of frame
         JPanel directions = new JPanel();
         JLabel greeting = new JLabel("Welcome! Press a row form name to hear it played.");
         directions.add(greeting);
         add(directions);
 
+        //creates main matrix grid with row form labels
         mainGrid = new JPanel();
         fillMainGrid(true);
         add(mainGrid);
 
+        //user options at bottom of frame
         JPanel optionPanel = new JPanel();
+        //choose whether to view square in matrix as scale degrees or note names
         JComboBox viewOptions = new JComboBox();
         viewOptions.addItem("Scale Degrees");
         viewOptions.addItem("Note Names");
@@ -42,6 +47,7 @@ public class GUI extends JFrame {
                 displayNoteNames();
             }
         });
+        //generate a new randomized matrix
         JButton regenerate = new JButton("New Random Matrix");
         regenerate.addActionListener(e -> {
             matrix = new Matrix(p);
@@ -50,6 +56,7 @@ public class GUI extends JFrame {
             fillMainGrid(viewOptions.getSelectedItem().toString().equals("Scale Degrees"));
             mainGrid.setVisible(true);
         });
+        //start from new pitchset
         JButton restart = new JButton("Enter New Pitch Set");
         optionPanel.add(viewOptions);
         optionPanel.add(regenerate);
@@ -58,6 +65,7 @@ public class GUI extends JFrame {
         setVisible(true);
     }
 
+    //uses a GridLayout to display the matrix itself (stored in grid) as well as row form labels as JButtons
     void fillMainGrid(boolean scaleDegrees) {
         int gridSize = matrix.size + 2;
         mainGrid.setLayout(new GridLayout(gridSize, gridSize));

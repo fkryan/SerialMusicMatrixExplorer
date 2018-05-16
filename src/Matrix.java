@@ -1,9 +1,10 @@
 import java.util.LinkedList;
 public class Matrix {
 
+    //Represents a single pitch in the matrix
     class Square {
-        int scaleDegree;
-        String noteName;
+        int scaleDegree; //order in the scale, starting from 0
+        String noteName; //letter name i.e. C, Bb, F#, etc.
 
         public Square(int degree) {
             scaleDegree = degree;
@@ -17,11 +18,19 @@ public class Matrix {
         public String toString() {
             return "" + scaleDegree;
         }
+
+        public boolean equals(Object other) {
+            if (!(other instanceof Square)) {
+                return false;
+            }
+            Square s = (Square) other;
+            return (scaleDegree == s.scaleDegree && noteName.equals(s.noteName));
+        }
     }
 
-    Square[][] board;
+    Square[][] board; //2D matrix made up of pitches
     int size;
-    PitchSet pitches;
+    PitchSet pitches; //used for relationship between scale degree (ordering in set) and letter name
 
     public Matrix(PitchSet p) {
         pitches = p;
@@ -33,6 +42,7 @@ public class Matrix {
         completeMatrix(randomRow(size));
     }
 
+    //generates a random numTones-tone row and stores pitch degrees in an array
     static int[] randomRow(int numTones) {
         int[] result = new int[numTones];
         int index = 0;
@@ -48,6 +58,7 @@ public class Matrix {
         return result;
     }
 
+    //modular arithmetic to keep degrees in the range 0->size
     static int fixDegree(int degree, int size) {
        if (degree >= size) {
            return degree % size;
@@ -60,6 +71,7 @@ public class Matrix {
        }
     }
 
+    //given a row, completes the full matrix
     public void completeMatrix(int[] row) {
         if (row.length != size) {
             throw new IllegalArgumentException();
@@ -93,6 +105,7 @@ public class Matrix {
         }
     }
 
+    //nice display with Squares represented by scale degrees
     public String toStringNumbers() {
         StringBuilder sb = new StringBuilder("   ");
         for (Square j : board[0]) {
@@ -116,6 +129,7 @@ public class Matrix {
         return sb.toString();
     }
 
+    //nice display with Squares represented by letter names
     public String toStringLetters() {
         StringBuilder sb = new StringBuilder("   ");
         for (Square j : board[0]) {
