@@ -28,8 +28,8 @@
       <file leaf-file-name="GUI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="24" lean-forward="true" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+            <state relative-caret-position="-14">
+              <caret line="89" column="8" lean-forward="false" selection-start-line="89" selection-start-column="8" selection-end-line="89" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -120,9 +120,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="196" />
-    <option name="y" value="28" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="66" />
+    <option name="y" value="23" />
     <option name="width" value="1280" />
     <option name="height" value="722" />
   </component>
@@ -280,7 +280,7 @@
       <updated>1526265990827</updated>
       <workItem from="1526265996802" duration="16337000" />
       <workItem from="1526343015245" duration="320000" />
-      <workItem from="1526438643769" duration="3689000" />
+      <workItem from="1526438643769" duration="6095000" />
     </task>
     <task id="LOCAL-00001" summary="updated main method to run from command line">
       <created>1526274381724</created>
@@ -317,14 +317,21 @@
       <option name="project" value="LOCAL" />
       <updated>1526441128216</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="visual updates">
+      <created>1526442348065</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1526442348065</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20346000" />
+    <option name="totallyTimeSpent" value="22752000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="722" extended-state="6" />
+    <frame x="66" y="23" width="1280" height="722" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -397,7 +404,8 @@
     <MESSAGE value="new Matrix main method takes a pitchset and prints a random matrix in both numerical and note name form" />
     <MESSAGE value="small error message changes" />
     <MESSAGE value="my first attempt at a (currently unusable) GUI" />
-    <option name="LAST_COMMIT_MESSAGE" value="my first attempt at a (currently unusable) GUI" />
+    <MESSAGE value="visual updates" />
+    <option name="LAST_COMMIT_MESSAGE" value="visual updates" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -572,8 +580,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="24" lean-forward="true" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+        <state relative-caret-position="-14">
+          <caret line="89" column="8" lean-forward="false" selection-start-line="89" selection-start-column="8" selection-end-line="89" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
