@@ -1,3 +1,4 @@
+import javax.sound.midi.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,9 +9,19 @@ public class GUI extends JFrame {
     JPanel mainGrid;
     JLabel grid[][];
     Matrix matrix;
+    Synthesizer midiSynth;
+    MidiChannel mChannels[];
 
     public GUI(PitchSet p) {
         super("Matrix Explorer");
+        try {
+            midiSynth = MidiSystem.getSynthesizer();
+            midiSynth.open();
+            Instrument[] instr = midiSynth.getDefaultSoundbank().getInstruments();
+            mChannels = midiSynth.getChannels();
+            midiSynth.loadInstrument(instr[78]);
+        }
+        catch (MidiUnavailableException e) {}
         matrix = new Matrix(p);
         //scale JFrame to matrix size
         int idealWidth = (int) (66.67 * matrix.size);
@@ -163,7 +174,16 @@ public class GUI extends JFrame {
     }
 
     void playRow(String[] row) {
-        System.out.println("PLAYING: " + Arrays.toString(row));
+        //System.out.println("PLAYING: " + Arrays.toString(row));
+        for (String r : row) {
+            int note = Constants.noteToMidi.get(r);
+            mChannels[0].noteOn(note, 1000);
+            try {
+                Thread.sleep(600);
+            } catch (InterruptedException e) {
+                mChannels[0].noteOff(note);
+            }
+        }
     }
 
 
