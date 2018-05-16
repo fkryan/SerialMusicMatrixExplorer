@@ -8,9 +8,9 @@ public class GUI extends JFrame {
     JLabel grid[][];
     Matrix matrix;
 
-    public GUI(Matrix m) {
+    public GUI(PitchSet p) {
         super("Matrix Generator");
-        matrix = m;
+        matrix = new Matrix(p);
         int idealWidth = (int) (66.67 * matrix.size);
         if (idealWidth < 450) {
             idealWidth = 450;
@@ -26,6 +26,40 @@ public class GUI extends JFrame {
         add(directions);
 
         mainGrid = new JPanel();
+        fillMainGrid();
+        add(mainGrid);
+
+        JPanel optionPanel = new JPanel();
+        JComboBox viewOptions = new JComboBox();
+        viewOptions.addItem("Scale Degrees");
+        viewOptions.addItem("Note Names");
+        viewOptions.setEditable(true);
+        viewOptions.addActionListener(e -> {
+            if (viewOptions.getSelectedItem().toString().equals("Scale Degrees")) {
+                displayScaleDegrees();
+            }
+            else {
+                displayNoteNames();
+            }
+        });
+        JButton regenerate = new JButton("New Random Matrix");
+        regenerate.addActionListener(e -> {
+            matrix = new Matrix(p);
+            mainGrid.setVisible(false);
+            mainGrid.removeAll();
+            fillMainGrid();
+            //mainGrid.repaint();
+            mainGrid.setVisible(true);
+        });
+        JButton restart = new JButton("Enter New Pitch Set");
+        optionPanel.add(viewOptions);
+        optionPanel.add(regenerate);
+        optionPanel.add(restart);
+        add(optionPanel);
+        setVisible(true);
+    }
+
+    void fillMainGrid() {
         int gridSize = matrix.size + 2;
         mainGrid.setLayout(new GridLayout(gridSize, gridSize));
         grid = new JLabel[matrix.size][matrix.size];
@@ -52,30 +86,7 @@ public class GUI extends JFrame {
             JButton bottom = new JButton("RI" + matrix.board[matrix.size -1][j].scaleDegree);
             mainGrid.add(bottom);
         }
-        add(mainGrid);
-
-        JPanel optionPanel = new JPanel();
-        JComboBox viewOptions = new JComboBox();
-        viewOptions.addItem("Scale Degrees");
-        viewOptions.addItem("Note Names");
-        viewOptions.setEditable(true);
-        viewOptions.addActionListener(e -> {
-            if (viewOptions.getSelectedItem().toString().equals("Scale Degrees")) {
-                displayScaleDegrees();
-            }
-            else {
-                displayNoteNames();
-            }
-        });
-        JButton regenerate = new JButton("New Random Matrix");
-        JButton restart = new JButton("Enter New Pitch Set");
-        optionPanel.add(viewOptions);
-        optionPanel.add(regenerate);
-        optionPanel.add(restart);
-        add(optionPanel);
-        setVisible(true);
     }
-
 
     void displayNoteNames() {
         for (int i = 0; i < matrix.size; i++) {
@@ -103,12 +114,12 @@ public class GUI extends JFrame {
 
 
     public static void main(String[] args) {
-        String pitches1[] = {"C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"};
-        String pitches[] = {"C", "D", "E", "F", "G", "A", "B"};
+        String pitches[] = {"C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"};
+        String pitches1[] = {"C", "D", "E", "F", "G", "A", "B"};
         PitchSet p = new PitchSet();
         for (String pitch : pitches) {
             p.addNote(pitch);
         }
-        GUI g = new GUI(new Matrix(p));
+        GUI g = new GUI(p);
     }
 }
