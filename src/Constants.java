@@ -8,4 +8,6 @@ public class Constants {
                     "D#", "Db", "E#", "Eb", "F#", "Fb", "G#", "Gb");
     public static final int PITCHSET_MAX = 12;
 
+    public static final int GRID_COMPONENT_SIZE = 40;
+
 }

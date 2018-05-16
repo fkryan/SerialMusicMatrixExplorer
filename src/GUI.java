@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class GUI extends JFrame {
     JPanel mainGrid;
-    JComponent grid[][];
+    JLabel grid[][];
     Matrix matrix;
 
     public GUI(Matrix m) {
@@ -19,34 +19,41 @@ public class GUI extends JFrame {
         setLookAndFeel();
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         JPanel directions = new JPanel();
         JLabel greeting = new JLabel("Welcome! Press a row form name to hear it played.");
         directions.add(greeting);
         add(directions);
+
         mainGrid = new JPanel();
         int gridSize = matrix.size + 2;
         mainGrid.setLayout(new GridLayout(gridSize, gridSize));
-        grid = new JComponent[gridSize][gridSize];
-        grid[0][0] = new JLabel("");
-        grid[0][gridSize - 1] = new JLabel("");
-        grid[gridSize - 1][gridSize - 1] = new JLabel("");
-        grid[gridSize - 1][0] = new JLabel("");
-        for (int j = 1; j < gridSize - 1; j++) {
-            grid[0][j] = new JButton("I" + matrix.board[0][j-1].scaleDegree);
-            grid[gridSize - 1][j] = new JButton("RI" + matrix.board[matrix.size - 1][j-1]);
+        grid = new JLabel[matrix.size][matrix.size];
+        //0, 0 position
+        mainGrid.add(new JLabel(""));
+        for (int j = 0; j < matrix.size; j++) {
+            JButton top = new JButton("I" + matrix.board[0][j].scaleDegree);
+            mainGrid.add(top);
         }
-        for (int i = 1; i < gridSize - 1; i++) {
-            grid[i][0] = new JButton("P" + matrix.board[i-1][0].scaleDegree);
-            grid[i][gridSize - 1] = new JButton("R" + matrix.board[i-1][matrix.size - 1].scaleDegree);
-        }
-        displayNoteNames();
-        for (int i = 0; i < gridSize; i++) {
-            for (int j = 0; j < gridSize; j++) {
-                //System.out.println("adding " + grid[i][j]);
+        mainGrid.add(new JLabel(""));
+        for (int i = 0; i < matrix.size; i++) {
+            JButton left = new JButton("P" + matrix.board[i][0].scaleDegree);
+            mainGrid.add(left);
+            for (int j = 0; j < matrix.size; j++) {
+                grid[i][j] = new JLabel(matrix.board[i][j].toString(), SwingConstants.CENTER);
+                grid[i][j].setBorder(BorderFactory.createLineBorder(Color.gray));
                 mainGrid.add(grid[i][j]);
             }
+            JButton right = new JButton("R" + matrix.board[i][matrix.size -1].toString());
+            mainGrid.add(right);
+        }
+        mainGrid.add(new JLabel(""));
+        for (int j = 0; j < matrix.size; j++) {
+            JButton bottom = new JButton("RI" + matrix.board[matrix.size -1][j].scaleDegree);
+            mainGrid.add(bottom);
         }
         add(mainGrid);
+
         JPanel optionPanel = new JPanel();
         JComboBox viewOptions = new JComboBox();
         viewOptions.addItem("Scale Degrees");
@@ -69,25 +76,21 @@ public class GUI extends JFrame {
         setVisible(true);
     }
 
-    void displayScaleDegrees() {
-        int gridSize = matrix.size + 2;
-        for (int i = 1; i < gridSize - 1; i++) {
-            for (int j = 1; j < gridSize - 1; j++) {
-                grid[i][j] = new JLabel(matrix.board[i-1][j-1].toString(), SwingConstants.CENTER);
-                grid[i][j].setBorder(BorderFactory.createLineBorder(Color.gray));
+
+    void displayNoteNames() {
+        for (int i = 0; i < matrix.size; i++) {
+            for (int j = 0; j < matrix.size; j++) {
+                grid[i][j].setText(matrix.board[i][j].noteName);
             }
         }
     }
 
-    void displayNoteNames() {
-        int gridSize = matrix.size + 2;
-        for (int i = 1; i < gridSize - 1; i++) {
-            for (int j = 1; j < gridSize - 1; j++) {
-                grid[i][j] = new JLabel(matrix.board[i-1][j-1].noteName, SwingConstants.CENTER);
-                grid[i][j].setBorder(BorderFactory.createLineBorder(Color.gray));
+    void displayScaleDegrees() {
+        for (int i = 0; i < matrix.size; i++) {
+            for (int j = 0; j < matrix.size; j++) {
+                grid[i][j].setText(matrix.board[i][j].toString());
             }
         }
-        
     }
 
     void setLookAndFeel() {
@@ -100,8 +103,8 @@ public class GUI extends JFrame {
 
 
     public static void main(String[] args) {
-        String pitches[] = {"C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"};
-        String pitches1[] = {"C", "D", "E", "F", "G", "A", "B"};
+        String pitches1[] = {"C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"};
+        String pitches[] = {"C", "D", "E", "F", "G", "A", "B"};
         PitchSet p = new PitchSet();
         for (String pitch : pitches) {
             p.addNote(pitch);
