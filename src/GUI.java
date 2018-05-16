@@ -26,7 +26,7 @@ public class GUI extends JFrame {
         add(directions);
 
         mainGrid = new JPanel();
-        fillMainGrid();
+        fillMainGrid(true);
         add(mainGrid);
 
         JPanel optionPanel = new JPanel();
@@ -47,8 +47,7 @@ public class GUI extends JFrame {
             matrix = new Matrix(p);
             mainGrid.setVisible(false);
             mainGrid.removeAll();
-            fillMainGrid();
-            //mainGrid.repaint();
+            fillMainGrid(viewOptions.getSelectedItem().toString().equals("Scale Degrees"));
             mainGrid.setVisible(true);
         });
         JButton restart = new JButton("Enter New Pitch Set");
@@ -59,7 +58,7 @@ public class GUI extends JFrame {
         setVisible(true);
     }
 
-    void fillMainGrid() {
+    void fillMainGrid(boolean scaleDegrees) {
         int gridSize = matrix.size + 2;
         mainGrid.setLayout(new GridLayout(gridSize, gridSize));
         grid = new JLabel[matrix.size][matrix.size];
@@ -74,7 +73,12 @@ public class GUI extends JFrame {
             JButton left = new JButton("P" + matrix.board[i][0].scaleDegree);
             mainGrid.add(left);
             for (int j = 0; j < matrix.size; j++) {
-                grid[i][j] = new JLabel(matrix.board[i][j].toString(), SwingConstants.CENTER);
+                if (scaleDegrees) {
+                    grid[i][j] = new JLabel(matrix.board[i][j].toString(), SwingConstants.CENTER);
+                }
+                else {
+                    grid[i][j] = new JLabel(matrix.board[i][j].noteName, SwingConstants.CENTER);
+                }
                 grid[i][j].setBorder(BorderFactory.createLineBorder(Color.gray));
                 mainGrid.add(grid[i][j]);
             }

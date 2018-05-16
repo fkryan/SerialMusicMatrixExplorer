@@ -28,8 +28,8 @@
       <file leaf-file-name="GUI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1665">
-              <caret line="111" column="9" lean-forward="true" selection-start-line="111" selection-start-column="9" selection-end-line="111" selection-end-column="9" />
+            <state relative-caret-position="70">
+              <caret line="35" column="38" lean-forward="true" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -272,7 +272,7 @@
       <workItem from="1526343015245" duration="320000" />
       <workItem from="1526438643769" duration="8588000" />
       <workItem from="1526447393351" duration="1158000" />
-      <workItem from="1526448612207" duration="2494000" />
+      <workItem from="1526448612207" duration="2750000" />
     </task>
     <task id="LOCAL-00001" summary="updated main method to run from command line">
       <created>1526274381724</created>
@@ -330,11 +330,18 @@
       <option name="project" value="LOCAL" />
       <updated>1526450238981</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="GUI can now generate new random matrix at press of a button">
+      <created>1526451145568</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1526451145568</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28897000" />
+    <option name="totallyTimeSpent" value="29153000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="14" y="23" width="1280" height="725" extended-state="0" />
@@ -413,7 +420,8 @@
     <MESSAGE value="visual updates" />
     <MESSAGE value="last working version before changing nature of grid" />
     <MESSAGE value="GUI action completed to change view between note names and scale degrees" />
-    <option name="LAST_COMMIT_MESSAGE" value="GUI action completed to change view between note names and scale degrees" />
+    <MESSAGE value="GUI can now generate new random matrix at press of a button" />
+    <option name="LAST_COMMIT_MESSAGE" value="GUI can now generate new random matrix at press of a button" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -668,8 +676,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1665">
-          <caret line="111" column="9" lean-forward="true" selection-start-line="111" selection-start-column="9" selection-end-line="111" selection-end-column="9" />
+        <state relative-caret-position="70">
+          <caret line="35" column="38" lean-forward="true" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
