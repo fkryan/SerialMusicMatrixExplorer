@@ -29,6 +29,7 @@ public class GUI extends JFrame {
 
         //creates main matrix grid with row form labels
         mainGrid = new JPanel();
+        mainGrid.setBackground(Constants.BACKGROUND_COLOR);
         fillMainGrid(true);
         add(mainGrid);
 
@@ -58,6 +59,10 @@ public class GUI extends JFrame {
         });
         //start from new pitchset
         JButton restart = new JButton("Enter New Pitch Set");
+        restart.addActionListener(e -> {
+            StartWindow s = new StartWindow();
+            dispose();
+        });
         optionPanel.add(viewOptions);
         optionPanel.add(regenerate);
         optionPanel.add(restart);
@@ -74,11 +79,13 @@ public class GUI extends JFrame {
         mainGrid.add(new JLabel(""));
         for (int j = 0; j < matrix.size; j++) {
             JButton top = new JButton("I" + matrix.board[0][j].scaleDegree);
+            top.setBackground(Constants.ROWBUTTON_COLOR);
             mainGrid.add(top);
         }
         mainGrid.add(new JLabel(""));
         for (int i = 0; i < matrix.size; i++) {
             JButton left = new JButton("P" + matrix.board[i][0].scaleDegree);
+            left.setBackground(Constants.ROWBUTTON_COLOR);
             mainGrid.add(left);
             for (int j = 0; j < matrix.size; j++) {
                 if (scaleDegrees) {
@@ -91,11 +98,13 @@ public class GUI extends JFrame {
                 mainGrid.add(grid[i][j]);
             }
             JButton right = new JButton("R" + matrix.board[i][matrix.size -1].toString());
+            right.setBackground(Constants.ROWBUTTON_COLOR);
             mainGrid.add(right);
         }
         mainGrid.add(new JLabel(""));
         for (int j = 0; j < matrix.size; j++) {
             JButton bottom = new JButton("RI" + matrix.board[matrix.size -1][j].scaleDegree);
+            bottom.setBackground(Constants.ROWBUTTON_COLOR);
             mainGrid.add(bottom);
         }
     }

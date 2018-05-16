@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,4 +13,7 @@ public class Constants {
     public static final List<String> validNotes =
             Arrays.asList(validNotesArray);
     public static final int PITCHSET_MAX = 12;
+
+    public static final Color BACKGROUND_COLOR = new Color(250, 250, 255);
+    public static final Color ROWBUTTON_COLOR = new Color(230, 204, 255);
 }
