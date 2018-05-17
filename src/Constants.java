@@ -15,6 +15,7 @@ public class Constants {
 
     public static final Color BACKGROUND_COLOR = new Color(250, 250, 255);
     public static final Color ROWBUTTON_COLOR = new Color(230, 204, 255);
+    public static final Color HIGHLIGHT_COLOR = new Color(240, 25, 255);
 
     public static final Map<String, Integer> noteToMidi;
     static {

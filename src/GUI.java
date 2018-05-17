@@ -19,10 +19,11 @@ public class GUI extends JFrame {
             midiSynth.open();
             Instrument[] instr = midiSynth.getDefaultSoundbank().getInstruments();
             mChannels = midiSynth.getChannels();
-            midiSynth.loadInstrument(instr[78]);
+            midiSynth.loadInstrument(instr[0]);
         }
         catch (MidiUnavailableException e) {}
         matrix = new Matrix(p);
+
         //scale JFrame to matrix size
         int idealWidth = (int) (66.67 * matrix.size);
         if (idealWidth < 450) {
@@ -91,28 +92,26 @@ public class GUI extends JFrame {
         mainGrid.add(new JLabel(""));
         for (int j = 0; j < matrix.size; j++) {
             JButton top = new JButton("I" + matrix.board[0][j].scaleDegree);
+            top.putClientProperty("row", 0);
+            top.putClientProperty("col", j);
             top.setBackground(Constants.ROWBUTTON_COLOR);
-            String[] notes = new String[matrix.size];
-            for (int i = 0; i < matrix.size; i++) {
-                notes[i] = matrix.board[i][j].noteName;
-            }
             top.addActionListener(e -> {
-                playRow(notes);
+                play(e);
             });
             mainGrid.add(top);
         }
         mainGrid.add(new JLabel(""));
         for (int i = 0; i < matrix.size; i++) {
             JButton left = new JButton("P" + matrix.board[i][0].scaleDegree);
+            left.putClientProperty("row", i);
+            left.putClientProperty("col", 0);
             left.setBackground(Constants.ROWBUTTON_COLOR);
-            String notes[] = new String[matrix.size];
-            for (int j = 0; j < matrix.size; j++) {
-                notes[j] = matrix.board[i][j].noteName;
-            }
             left.addActionListener(e -> {
-                playRow(notes);
+                play(e);
             });
             mainGrid.add(left);
+
+            //copies over grid data
             for (int j = 0; j < matrix.size; j++) {
                 if (scaleDegrees) {
                     grid[i][j] = new JLabel(matrix.board[i][j].toString(), SwingConstants.CENTER);
@@ -121,29 +120,27 @@ public class GUI extends JFrame {
                     grid[i][j] = new JLabel(matrix.board[i][j].noteName, SwingConstants.CENTER);
                 }
                 grid[i][j].setBorder(BorderFactory.createLineBorder(Color.gray));
+                grid[i][j].putClientProperty("row", i);
+                grid[i][j].putClientProperty("col", j);
                 mainGrid.add(grid[i][j]);
             }
             JButton right = new JButton("R" + matrix.board[i][matrix.size -1].toString());
+            right.putClientProperty("row", i);
+            right.putClientProperty("col", matrix.size - 1);
             right.setBackground(Constants.ROWBUTTON_COLOR);
-            String notes2[] = new String[matrix.size];
-            for (int j = matrix.size - 1; j >= 0; j--) {
-                notes2[matrix.size - 1 - j] = matrix.board[i][j].noteName;
-            }
             right.addActionListener(e -> {
-                playRow(notes2);
+                play(e);
             });
             mainGrid.add(right);
         }
         mainGrid.add(new JLabel(""));
         for (int j = 0; j < matrix.size; j++) {
             JButton bottom = new JButton("RI" + matrix.board[matrix.size -1][j].scaleDegree);
+            bottom.putClientProperty("row", matrix.size - 1);
+            bottom.putClientProperty("col", j);
             bottom.setBackground(Constants.ROWBUTTON_COLOR);
-            String notes[] = new String[matrix.size];
-            for (int i = matrix.size - 1; i >= 0; i--) {
-                notes[matrix.size - 1 - i] = matrix.board[i][j].noteName;
-            }
             bottom.addActionListener(e -> {
-                playRow(notes);
+                play(e);
             });
             mainGrid.add(bottom);
         }
@@ -173,19 +170,51 @@ public class GUI extends JFrame {
         }
     }
 
-    void playRow(String[] row) {
-        //System.out.println("PLAYING: " + Arrays.toString(row));
-        for (String r : row) {
-            int note = Constants.noteToMidi.get(r);
-            mChannels[0].noteOn(note, 1000);
-            try {
-                Thread.sleep(600);
-            } catch (InterruptedException e) {
-                mChannels[0].noteOff(note);
+    void play(ActionEvent e) {
+        JButton source = (JButton) e.getSource();
+        int row = (int) source.getClientProperty("row");
+        int col = (int) source.getClientProperty("col");
+        JLabel notes[] = new JLabel[matrix.size];
+        if (row == 0) {
+            for (int i = 0; i < matrix.size; i++) {
+                notes[i] = grid[i][col];
             }
+        }
+        else if (row == matrix.size - 1) {
+            for (int i = matrix.size - 1; i >= 0; i--) {
+                notes[matrix.size - 1 - i] = grid[i][col];
+            }
+        }
+        else if (col == 0) {
+            for (int j = 0; j < matrix.size; j++) {
+                notes[j] = grid[row][j];
+            }
+        }
+        else {
+            for (int j = matrix.size - 1; j>=0; j--) {
+                notes[matrix.size - 1 - j] = grid[row][j];
+            }
+        }
+        for (JLabel note : notes) {
+            int r = (int) note.getClientProperty("row");
+            int c = (int) note.getClientProperty("col");
+            int pitch = Constants.noteToMidi.get(matrix.board[r][c].noteName);
+            highlight(r, c);
+            playNote(pitch);
         }
     }
 
+    public void highlight(int row, int col) {
+        grid[row][col].setBackground(Constants.HIGHLIGHT_COLOR);
+    }
+
+    public void playNote(int pitch) {
+        mChannels[0].noteOn(pitch, 1000);
+        try {
+            Thread.sleep(600);
+        } catch (InterruptedException ex) {}
+        mChannels[0].noteOff(pitch);
+    }
 
     public static void main(String[] args) {
         String pitches[] = {"C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"};
